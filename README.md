@@ -48,5 +48,7 @@ This is a simple Flask application that allows users to upload images and apply 
 
 **Authors**
 
-1. Rajapaksha R.M.D.T - IT21312830
-2. 
+1. Subasinghe S.S.Y.H - IT21237072
+2. Rajapaksha R.M.D.T - IT21312830
+3. Riizan S - IT21311840
+4. J.A.T.N Jayasooriya- IT21129162
