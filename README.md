@@ -1,10 +1,9 @@
-**Digital Image Processing Assignment 01
-**
+#Digital Image Processing Assignment 01
 
 
 This is a simple Flask application that allows users to upload images and apply various image manipulations to them. Users can perform operations such as color change, rotation, cropping, flipping, smoothing, and embossing on the uploaded images.
 
-**Installation**
+**#Installation**
 
 1. Clone the repository to your local machine using:
 
