@@ -1,68 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Segmentation</title>
+    <title>Image Manipulation Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            font-size: 28px;
+        }
+
+        form {
+            margin: 20px;
+        }
+
+        .clr {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            border: 2px solid #4CAF50;
+            background-color: #333;
+            color: #4CAF50;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        hr {
+            border: 1px solid #ccc;
+            margin: 20px;
+        }
+
+        h2 {
+            margin: 20px;
+            font-size: 24px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, input[type="number"], input[type="text"] {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        /* Additional Styles for Better Aesthetics */
+        form[action="/manipulate"] {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .flip-checkbox {
+            margin-left: 10px;
+            margin: 5px;
+            padding: 50px;
+            border: 4px solid #ccc;
+            border-radius: 5px;
+        }
+
+        input[type="submit"][value="Apply"] {
+            background-color: #333;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .image-container img {
+            max-width: 45%;
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Image Segmentation</h1>
-
-    {% if original_image %}
-        <h2>Original Image</h2>
-        <img src="{{ original_image }}" alt="Original Image" style="max-width: 500px; max-height: 500px;">
-    {% endif %}
-
-    {% if modified_image %}
-        <h2>Modified Image</h2>
-        <img src="{{ modified_image }}" alt="Modified Image" style="max-width: 500px; max-height: 500px;">
-    {% endif %}
-
-    {% if segmented_image %}
-        <h2>Segmented Image</h2>
-        <img src="{{ segmented_image }}" alt="Segmented Image" style="max-width: 500px; max-height: 500px;">
-    {% endif %}
-
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="file">Choose an image to upload:</label><br>
-        <input type="file" id="file" name="file" accept="image/*"><br><br>
+ <h1>Image Manipulation Tool</h1>
+    
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".jpg, .jpeg, .png" required>
         <input type="submit" value="Upload Image">
     </form>
 
-    <form action="/manipulate" method="post">
-        <label for="color_change">Color Change:</label>
-        <select name="color_change" id="color_change">
+    <hr>
+
+    <h2>Original Image</h2>
+    <img src="{{ original_image }}" alt="Original Image">
+
+    <h2>Modified Image</h2>
+    <img src="{{ modified_image }}" alt="Modified Image">
+
+    <h2>Manipulations</h2>
+    <form method="POST" action="/manipulate">
+        <label>Color Change:</label>
+        <select name="color_change">
             <option value="color">Color</option>
             <option value="bw">Black & White</option>
             <option value="grayscale">Grayscale</option>
         </select>
+        <br>
 
-        <label for="rotation">Rotation (degrees):</label>
-        <input type="number" name="rotation" id="rotation" min="-360" max="360" step="1" value="0">
+        <label>Rotation (degrees):</label>
+        <input type="number" name="rotation" min="-360" max="360" step="1" value="0">
+        <br>
         
-        <label for="crop">Cropping (x1, y1, x2, y2):</label>
-        <input type="text" name="crop" id="crop" placeholder="e.g., 100, 100, 300, 300">
+        <label>Cropping (x1, y1, x2, y2):</label>
+        <input type="text" name="crop" placeholder="e.g., 100, 100, 300, 300">
+        <br>
         
-        <label for="flip">Flipping:</label>
-        <input type="checkbox" name="flip" id="flip">
-        
-        <label for="smoothing">Smoothing:</label>
-        <input type="checkbox" name="smoothing" id="smoothing">
+        <label>Apply Smoothing:</label>
+        <input type="checkbox" name="smoothing">
+        <br>
 
-        <label for="embossing">Embossing:</label>
-        <input type="checkbox" name="embossing" id="embossing">
+        <label>Apply Embossing:</label>
+        <input type="checkbox" name="embossing">
+        <br>
 
-        <label for="brightness">Brightness:</label>
-        <input type="range" name="brightness" id="brightness" min="0" max="2" step="0.1" value="1">
+        <label>Apply Blur:</label>
+        <input type="checkbox" name="blur">
+        <br>
 
-        <label for="contrast">Contrast:</label>
-        <input type="range" name="contrast" id="contrast" min="0" max="2" step="0.1" value="1">
+        <label>Brightness Adjustment (0.0-1.0):</label>
+        <input type="number" name="brightness" min="0" max="1" step="0.1" value="1">
+        <br>
 
-        <label for="sharpness">Sharpness:</label>
-        <input type="range" name="sharpness" id="sharpness" min="0" max="2" step="0.1" value="1">
+        <label>Contrast Adjustment (0.0-1.0):</label>
+        <input type="number" name="contrast" min="0" max="1" step="0.1" value="1">
+        <br>
 
-        <br><br>
+        <label>Sharpness Adjustment (0.0-2.0):</label>
+        <input type="number" name="sharpness" min="0" max="2" step="0.1" value="1">
+        <br>
+
         <input type="submit" value="Apply">
     </form>
 </body>
