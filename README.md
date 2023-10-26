@@ -17,7 +17,7 @@ This is a simple Flask application that allows users to upload images and apply 
    pip install -r requirements.txt
    ```
 
-**--Usage--**
+**Usage**
 
 1. Run the Flask application using:
 
@@ -29,7 +29,7 @@ This is a simple Flask application that allows users to upload images and apply 
 
 3. Upload an image and apply various image manipulations using the available options.
 
-**--Features--**
+**Features**
 
 - Image upload functionality
 - Color change options (black and white, grayscale)
