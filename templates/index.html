@@ -2,117 +2,9 @@
 <html>
 <head>
     <title>Image Manipulation Tool</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-
-        h1 {
-            background-color: #333;
-            color: white;
-            padding: 20px;
-            font-size: 28px;
-        }
-
-        form {
-            margin: 20px;
-        }
-
-        .clr {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-        }
-
-        input[type="file"] {
-            padding: 10px;
-            border: 2px solid #4CAF50;
-            background-color: #333;
-            color: #4CAF50;
-            font-size: 16px;
-        }
-
-        input[type="submit"] {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-        }
-
-        hr {
-            border: 1px solid #ccc;
-            margin: 20px;
-        }
-
-        h2 {
-            margin: 20px;
-            font-size: 24px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        label {
-            font-weight: bold;
-        }
-
-        select, input[type="number"], input[type="text"] {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        /* Additional Styles for Better Aesthetics */
-        form[action="/manipulate"] {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .flip-checkbox {
-            margin-left: 10px;
-            margin: 5px;
-            padding: 50px;
-            border: 4px solid #ccc;
-            border-radius: 5px;
-        }
-
-        input[type="submit"][value="Apply"] {
-            background-color: #333;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            margin-top: 20px;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .image-container img {
-            max-width: 45%;
-            border: 2px solid #333;
-            border-radius: 10px;
-            margin: 10px;
-        }
-    </style>
 </head>
 <body>
- <h1>Image Manipulation Tool</h1>
+    <h1>Image Manipulation Tool</h1>
     
     <form method="POST" enctype="multipart/form-data">
         <input type="file" name="file" accept=".jpg, .jpeg, .png" required>
@@ -135,39 +27,25 @@
             <option value="bw">Black & White</option>
             <option value="grayscale">Grayscale</option>
         </select>
-        <br>
+        <label>Filter:</label>
+        <select name="filter">
+            <option value="original">Original</option>
+            <option value="sharpen">Sharpen</option>
+            <option value="smooth">Smooth</option>
+            <option value="edges">Edge Detection</option>
+            <option value="emboss">Emboss</option>
+            <option value="enhance">Image Enhancement (Deep Learning)</option>
+            <option value="style_transfer">Style Transfer</option>
+        </select>
 
         <label>Rotation (degrees):</label>
         <input type="number" name="rotation" min="-360" max="360" step="1" value="0">
-        <br>
         
         <label>Cropping (x1, y1, x2, y2):</label>
         <input type="text" name="crop" placeholder="e.g., 100, 100, 300, 300">
-        <br>
         
-        <label>Apply Smoothing:</label>
-        <input type="checkbox" name="smoothing">
-        <br>
-
-        <label>Apply Embossing:</label>
-        <input type="checkbox" name="embossing">
-        <br>
-
-        <label>Apply Blur:</label>
-        <input type="checkbox" name="blur">
-        <br>
-
-        <label>Brightness Adjustment (0.0-1.0):</label>
-        <input type="number" name="brightness" min="0" max="1" step="0.1" value="1">
-        <br>
-
-        <label>Contrast Adjustment (0.0-1.0):</label>
-        <input type="number" name="contrast" min="0" max="1" step="0.1" value="1">
-        <br>
-
-        <label>Sharpness Adjustment (0.0-2.0):</label>
-        <input type="number" name="sharpness" min="0" max="2" step="0.1" value="1">
-        <br>
+        <label>Flipping:</label>
+        <input type="checkbox" name="flip">
 
         <input type="submit" value="Apply">
     </form>
